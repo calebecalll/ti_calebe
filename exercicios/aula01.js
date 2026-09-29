@@ -1,49 +1,45 @@
-// Aula 01 - Um botao que lembra
-// Responda abaixo. Mantenha os marcadores e nao apague os enunciados.
-
 // ex1
-// Escreva a linha que cria uma variavel chamada visto guardando o valor falso.
-
+let visto = false;
 
 // ex2
-// Diga o que cada comparacao devolve, true ou false:
-//   5 === 5
-//   "5" === 5
-//   "5" == 5
-//   true === false
-
+// 5 === 5    -> true (mesmo tipo e mesmo valor)
+// "5" === 5  -> false (tipos diferentes: string vs number)
+// "5" == 5   -> true (o == converte a string em número antes de comparar)
+// true === false -> false (valores booleanos diferentes)
 
 // ex3
-// O trecho abaixo roda sem dar erro, mas apoiar um cartao bagunca os outros.
-// Diga por que, e escreva a correcao.
-//
-//   let apoiado = false;
-//
-//   document.querySelectorAll(".apoiar").forEach(function(botao) {
-//     botao.addEventListener("click", function() {
-//       // ...
-//     });
-//   });
+// Motivo: A variável `apoiado` foi criada fora do evento do botão como uma variável global única.
+// Ao clicar em qualquer cartão, todos passam a usar o mesmo estado da variável `apoiado`.
+// Correção: Mover a variável `let apoiado = false;` para dentro da função de callback do clique,
+// criando um escopo de controle individual para cada botão.
 
+document.querySelectorAll(".apoiar").forEach(function(botao) {
+  let apoiado = false;
+  botao.addEventListener("click", function() {
+    // código do clique...
+  });
+});
 
 // ex4
-// Complete o if/else para o botao voltar a dizer Apoiar quando o apoio for retirado.
-//
-//   if (apoiado === false) {
-//     botao.textContent = "Apoiado";
-//   } else {
-//     botao.textContent = ______________;
-//   }
-
+if (apoiado === false) {
+  botao.textContent = "Apoiado";
+} else {
+  botao.textContent = "Apoiar";
+}
 
 // ex5
-// Este exercicio eh feito no index.html, nao aqui.
-// Acrescente ao Radar um quarto cartao, com um problema real da sua escola,
-// e faca o botao dele funcionar igual aos outros.
-// Escreva aqui, em uma linha, o que voce mudou na pagina.
-
+// Alteração feita no index.html:
+// Dentro da div ou seção do Radar, foi duplicada a estrutura de um cartão existente e alterado o conteúdo para o novo problema:
+/*
+<div class="cartao">
+  <h3>Problema da Escola</h3>
+  <p>Falta de sabonete nos banheiros do bloco B.</p>
+  <button class="apoiar">Apoiar</button>
+</div>
+*/
 
 // ex6
-// Um cartao precisa nascer ja apoiado: contagem em 1 e botao escrito Apoiado.
-// O que voce mudaria no JavaScript para ele funcionar direito desde o primeiro clique?
-// E por que a sua solucao nao serve para os outros cartoes?
+// Para o cartão nascer apoiado, o ideal é guardar o estado no próprio elemento HTML (usando atributo de dados, como data-apoiado="true")
+// ou definir a variável local desse cartão específico como `true` de início.
+// A solução de mudar a variável inicial `let apoiado = true;` no JavaScript não serve para os outros cartões porque faria 
+// com que todos os botões da página começassem como apoiados, alterando o comportamento padronizado dos demais cartões que iniciam desapoiados.
